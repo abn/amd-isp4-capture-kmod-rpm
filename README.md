@@ -1,4 +1,4 @@
-# akmod-amd-isp4-capture-capture
+# akmod-amd-isp4-capture
 
 [![Copr Build Status](https://copr.fedorainfracloud.org/coprs/abn/amd-isp4-capture-kmod/package/amd-isp4-capture-kmod/status_image/last_build.png)](https://copr.fedorainfracloud.org/coprs/abn/amd-isp4-capture-kmod/package/amd-isp4-capture-kmod/)
 
@@ -15,12 +15,14 @@ This driver is available via the [abn/amd-isp4-capture-kmod](https://copr.fedora
 sudo dnf copr enable abn/amd-isp4-capture-kmod
 
 # Install the akmod and meta-package
-sudo dnf install akmod-amd-isp4-capture-capture kmod-amd-isp4-capture
+sudo dnf install akmod-amd-isp4-capture kmod-amd-isp4-capture
 ```
 
 ### Secure Boot Enrollment (Required if Secure Boot is ON)
 
 If your system has Secure Boot enabled, you **must** enroll a signing key so the kernel can trust and load the locally-compiled module.
+
+> **Note:** The `kmodgenca` command requires the `akmods` package to be installed.
 
 1.  **Generate a signing key** (if you haven't already):
     ```bash
@@ -58,7 +60,7 @@ If the module fails to load:
 
 1.  **Check the akmods build log**:
     ```bash
-    cat /var/cache/akmods/amd-isp4/*.log
+    cat /var/cache/akmods/amd-isp4-capture/*.log
     ```
 
 2.  **Verify signature status**:
