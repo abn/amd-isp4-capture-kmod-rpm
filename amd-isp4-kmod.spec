@@ -13,7 +13,7 @@
 # ── Main package header (must precede any %%package directives) ──────────────
 Name:           %{pkg_kmod_name}
 Version:        8
-Release:        2%{?dist}
+Release:        0%{?dist}
 Summary:        Kernel module source for AMD ISP4 Ryzen AI Max Camera
 License:        GPL-2.0-or-later
 URL:            https://github.com/idovitz/amdisp4
@@ -153,6 +153,4 @@ ln -sf "$(ls %{buildroot}/%{_usrsrc}/akmods/*.src.rpm | xargs basename)" \
 %endif
 
 %changelog
-* Sat Feb 21 2026 Arun Babu Neelicattu <arun.neelicattu@gmail.com> - 8-2
-- Initial module using the v8 of the LKML patch series.
 
