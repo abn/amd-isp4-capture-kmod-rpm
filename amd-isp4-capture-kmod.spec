@@ -1,10 +1,10 @@
 %global debug_package %{nil}
-%global kmod_name     amd-isp4
+%global kmod_name     amd-isp4-capture
 # Pre-define naming macros with literal values so the main package header
 # resolves even in limited parse contexts (e.g. dnf builddep).
 # kmodtool will redefine these to the same values inside its fedora guard.
-%global kmod_pkg_name kmod-amd-isp4
-%global pkg_kmod_name amd-isp4-kmod
+%global kmod_pkg_name kmod-amd-isp4-capture
+%global pkg_kmod_name amd-isp4-capture-kmod
 
 # akmods defines 'kernels' but our spec uses 'for_kernels' (from kmodtool convention).
 # Map them if 'kernels' is present.
@@ -28,7 +28,7 @@ BuildRequires:  kernel-devel
 %endif
 
 # ── Per-kernel kmod subpackage (akmods rebuild path only) ────────────────────
-# kmodtool generates the kmod-amd-isp4-<kver> package definition and %files
+# kmodtool generates the kmod-amd-isp4-capture-<kver> package definition and %files
 # when akmods rebuilds with: rpmbuild --rebuild --define "for_kernels <kver>"
 %if 0%{?for_kernels:1}
 %{expand:%(kmodtool --target %{_target_cpu} --kmodname %{kmod_name} --for-kernels "%{for_kernels}" 2>/dev/null)}
@@ -36,7 +36,7 @@ BuildRequires:  kernel-devel
 
 # ── Akmod subpackage (distribution build only) ───────────────────────────────
 # Defined manually (not via kmodtool --akmod) so we can add
-# Provides: amd-isp4-kmod-common, which kmodtool injects as a Requires into
+# Provides: amd-isp4-capture-kmod-common, which kmodtool injects as a Requires into
 # both the akmod and per-kernel kmod packages. This driver has no separate
 # common files (firmware, udev rules), so the akmod package self-provides it.
 %if ! 0%{?for_kernels:1}
@@ -113,8 +113,8 @@ done
 %install
 %if 0%{?for_kernels:1}
 # Install the compiled .ko for each kernel.
-# kmodtool's %files for kmod-amd-isp4-<kver> expects modules at:
-#   /lib/modules/<kver>/extra/amd-isp4/
+# kmodtool's %files for kmod-amd-isp4-capture-<kver> expects modules at:
+#   /lib/modules/<kver>/extra/amd-isp4-capture/
 # Module signing and compression are handled by kmodtool's
 # %%global __spec_install_post override, not called explicitly here.
 _srcdir=$(pwd)/amdisp4/drivers/media/platform/amd/isp4
@@ -156,9 +156,9 @@ ln -sf "$(ls %{buildroot}/%{_usrsrc}/akmods/*.src.rpm | xargs basename)" \
 
 %changelog
 * Sun Feb 22 2026 Arun Babu Neelicattu <arun.neelicattu@gmail.com> 8-2
+- Rename package to amd-isp4-capture-kmod (arun.neelicattu@gmail.com)
 - Fix %%install to avoid copying tarball to itself (arun.neelicattu@gmail.com)
 
 * Sun Feb 22 2026 Arun Babu Neelicattu <arun.neelicattu@gmail.com> 8-1
 - new package built with tito
 - add v8 of lkml patch series
-

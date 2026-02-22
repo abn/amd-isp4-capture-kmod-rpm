@@ -1,6 +1,6 @@
-# akmod-amd-isp4
+# akmod-amd-isp4-capture-capture
 
-[![Copr Build Status](https://copr.fedorainfracloud.org/coprs/abn/amd-isp4-kmod/package/amd-isp4-kmod/status_image/last_build.png)](https://copr.fedorainfracloud.org/coprs/abn/amd-isp4-kmod/package/amd-isp4-kmod/)
+[![Copr Build Status](https://copr.fedorainfracloud.org/coprs/abn/amd-isp4-capture-kmod/package/amd-isp4-capture-kmod/status_image/last_build.png)](https://copr.fedorainfracloud.org/coprs/abn/amd-isp4-capture-kmod/package/amd-isp4-capture-kmod/)
 
 Fedora **akmod** package for the AMD ISP4 camera driver, enabling the built-in camera on AMD Ryzen AI Max (Strix Halo) platforms.
 
@@ -8,14 +8,14 @@ The driver source is integrated via git submodules from [idovitz/amdisp4](https:
 
 ## Installation
 
-This driver is available via the [abn/amd-isp4-kmod](https://copr.fedorainfracloud.org/coprs/abn/amd-isp4-kmod/) Copr repository.
+This driver is available via the [abn/amd-isp4-capture-kmod](https://copr.fedorainfracloud.org/coprs/abn/amd-isp4-capture-kmod/) Copr repository.
 
 ```bash
 # Enable the Copr repository
-sudo dnf copr enable abn/amd-isp4-kmod
+sudo dnf copr enable abn/amd-isp4-capture-kmod
 
 # Install the akmod and meta-package
-sudo dnf install akmod-amd-isp4 kmod-amd-isp4
+sudo dnf install akmod-amd-isp4-capture-capture kmod-amd-isp4-capture
 ```
 
 ### Secure Boot Enrollment (Required if Secure Boot is ON)
@@ -39,7 +39,7 @@ If your system has Secure Boot enabled, you **must** enroll a signing key so the
 4.  **Rebuild and load the module**:
     Once back in Fedora, force a rebuild to sign the module with your new key:
     ```bash
-    sudo akmods --force --akmod amd-isp4-kmod
+    sudo akmods --force --akmod amd-isp4-capture-kmod
     sudo modprobe amd_isp4_capture
     ```
 
