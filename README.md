@@ -5,7 +5,7 @@
 
 Fedora **akmod** package for the AMD ISP4 camera driver, enabling the built-in camera on AMD Ryzen AI Max (Strix Halo) platforms.
 
-The driver source is integrated via git submodules from [idovitz/amdisp4](https://github.com/idovitz/amdisp4).
+The driver source is tracked as patches from the [lore.kernel.org linux-media list](https://lore.kernel.org/linux-media/?q=amd+isp4+capture+Bin.Du), applied at build time. Use `update-patches.sh` to pull a new patch series revision.
 
 ## Installation
 
@@ -76,10 +76,27 @@ This project uses [tito](https://github.com/rpm-software-management/tito) for ve
 
 ### Building RPMs locally
 
-To perform a test build of the RPMs:
+See `HOW-TO-BUILD-RPMS.md` for the full workflow. Quick reference:
+
 ```bash
-tito build --rpm --test
+# Build source tarball and RPMs (single shot)
+mkdir -p output
+tito build --test --tgz
+cp /tmp/tito/amd-isp4-capture-kmod-git-*.tar.gz ./amd-isp4-capture-kmod-8.tar.gz
+podman run --rm \
+  -v $(pwd):/sources:z -v $(pwd)/output:/output:z \
+  quay.io/abn/rpmbuilder:fedora-43 rpmbuilder
 ```
+
+### Updating to a new upstream patch series
+
+```bash
+# Find the cover-letter message ID at:
+# https://lore.kernel.org/linux-media/?q=amd+isp4+capture+Bin.Du
+./update-patches.sh <cover-letter-message-id>
+```
+
+Requires `b4` (`sudo dnf install b4`).
 
 ### Releasing to COPR
 

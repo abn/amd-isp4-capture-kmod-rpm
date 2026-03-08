@@ -16,7 +16,9 @@ Version:        8
 Release:        3
 Summary:        Kernel module source for AMD ISP4 Ryzen AI Max Camera
 License:        GPL-2.0-or-later
-URL:            https://github.com/idovitz/amdisp4
+URL:            https://lore.kernel.org/linux-media/
+# Upstream patch series:
+#   v8: https://lore.kernel.org/linux-media/20250212112913.2037239-1-Bin.Du@amd.com/
 Source0:        %{name}-%{version}.tar.gz
 
 BuildRequires:  gcc
@@ -83,13 +85,12 @@ providing video capture support for AMD Ryzen AI Max platforms.
 %setup -q -c -T
 tar -xf %{SOURCE0} --strip-components=1
 
-# Apply all patches to the submodule source.
+# Apply all patches from patches/ directory.
 # They are kernel-tree style (-p1 strips the a/b/ prefix)
 # and create the driver source under drivers/media/platform/amd/isp4/
-# The patches are located inside the submodule itself.
-for p in amdisp4/patches/*.patch; do
+for p in $(ls patches/*.patch | sort); do
     echo "Applying $p..."
-    patch -p1 -d amdisp4 < "$p"
+    patch -p1 < "$p"
 done
 
 %build
@@ -101,7 +102,7 @@ done
 # Build the out-of-tree kernel module for each specified kernel.
 # We use the in-tree Makefile at drivers/media/platform/amd/isp4/ directly,
 # passing CONFIG_VIDEO_AMD_ISP4_CAPTURE=m so obj-$(CONFIG_...) becomes obj-m.
-_srcdir=$(pwd)/amdisp4/drivers/media/platform/amd/isp4
+_srcdir=$(pwd)/drivers/media/platform/amd/isp4
 for kernel in %{for_kernels}; do
     make -C %{_usrsrc}/kernels/${kernel} \
          M=${_srcdir} \
@@ -117,7 +118,7 @@ done
 #   /lib/modules/<kver>/extra/amd-isp4-capture/
 # Module signing and compression are handled by kmodtool's
 # %%global __spec_install_post override, not called explicitly here.
-_srcdir=$(pwd)/amdisp4/drivers/media/platform/amd/isp4
+_srcdir=$(pwd)/drivers/media/platform/amd/isp4
 for kernel in %{for_kernels}; do
     install -d %{buildroot}/lib/modules/${kernel}/extra/%{kmod_name}/
     install -m 644 ${_srcdir}/*.ko \
