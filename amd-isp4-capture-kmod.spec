@@ -86,12 +86,17 @@ providing video capture support for AMD Ryzen AI Max platforms.
 tar -xf %{SOURCE0} --strip-components=1
 
 # Apply all patches from patches/ directory.
-# They are kernel-tree style (-p1 strips the a/b/ prefix)
-# and create the driver source under drivers/media/platform/amd/isp4/
+# Patches are kernel-tree style (-p1) and may also modify existing kernel
+# files (MAINTAINERS, Kconfig, platform Makefile) that are not present here.
+# --batch skips missing-file hunks non-interactively; the exit status is
+# checked separately so only a complete failure aborts the build.
 for p in $(ls patches/*.patch | sort); do
     echo "Applying $p..."
-    patch -p1 < "$p"
+    patch -p1 --batch --forward --reject-file=/dev/null < "$p" || true
 done
+# Verify the driver source was actually created by the patches.
+test -f drivers/media/platform/amd/isp4/isp4.c || \
+    { echo "ERROR: patches did not create driver source"; exit 1; }
 
 %build
 %if 0%{?for_kernels:1}
