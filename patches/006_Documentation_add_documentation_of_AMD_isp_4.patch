@@ -80,7 +80,7 @@ index 000000000000..978f30c1a31a
 +	n00000003 [label="Preview\n/dev/video0", shape=box, style=filled, fillcolor=yellow]
 +}
 diff --git a/Documentation/admin-guide/media/v4l-drivers.rst b/Documentation/admin-guide/media/v4l-drivers.rst
-index 3bac5165b134..6027416e5373 100644
+index 393f83e8dc4d..0fb88449fffd 100644
 --- a/Documentation/admin-guide/media/v4l-drivers.rst
 +++ b/Documentation/admin-guide/media/v4l-drivers.rst
 @@ -9,6 +9,7 @@ Video4Linux (V4L) driver-specific documentation
@@ -92,10 +92,10 @@ index 3bac5165b134..6027416e5373 100644
  	c3-isp
  	cafe_ccic
 diff --git a/MAINTAINERS b/MAINTAINERS
-index 8478789ac265..c34137e27b55 100644
+index ec0a4d49f4d8..080c7cfcaf46 100644
 --- a/MAINTAINERS
 +++ b/MAINTAINERS
-@@ -1139,6 +1139,8 @@ M:	Nirujogi Pratap <pratap.nirujogi@amd.com>
+@@ -1168,6 +1168,8 @@ M:	Nirujogi Pratap <pratap.nirujogi@amd.com>
  L:	linux-media@vger.kernel.org
  S:	Maintained
  T:	git git://linuxtv.org/media.git
@@ -105,5 +105,5 @@ index 8478789ac265..c34137e27b55 100644
  F:	drivers/media/platform/amd/Makefile
  F:	drivers/media/platform/amd/isp4/Kconfig
 -- 
-2.34.1
+2.53.0
 

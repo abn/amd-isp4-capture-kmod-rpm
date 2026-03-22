@@ -1,8 +1,8 @@
 diff --git a/MAINTAINERS b/MAINTAINERS
-index 7aa17c7e71d6..cccae369c876 100644
+index e7bb6dda6072..1d2c44b9b94d 100644
 --- a/MAINTAINERS
 +++ b/MAINTAINERS
-@@ -1145,7 +1145,10 @@ F:	drivers/media/platform/amd/isp4/Kconfig
+@@ -1174,7 +1174,10 @@ F:	drivers/media/platform/amd/isp4/Kconfig
  F:	drivers/media/platform/amd/isp4/Makefile
  F:	drivers/media/platform/amd/isp4/isp4.c
  F:	drivers/media/platform/amd/isp4/isp4.h
@@ -1332,5 +1332,5 @@ index 000000000000..ce3ac9b9e5cd
 +
 +#endif /* _ISP4_INTERFACE_H_ */
 -- 
-2.34.1
+2.53.0
 

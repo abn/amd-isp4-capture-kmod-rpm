@@ -1,8 +1,8 @@
 diff --git a/MAINTAINERS b/MAINTAINERS
-index 80c966fde0b4..8478789ac265 100644
+index a67dfb050df9..ec0a4d49f4d8 100644
 --- a/MAINTAINERS
 +++ b/MAINTAINERS
-@@ -1145,6 +1145,8 @@ F:	drivers/media/platform/amd/isp4/Kconfig
+@@ -1174,6 +1174,8 @@ F:	drivers/media/platform/amd/isp4/Kconfig
  F:	drivers/media/platform/amd/isp4/Makefile
  F:	drivers/media/platform/amd/isp4/isp4.c
  F:	drivers/media/platform/amd/isp4/isp4.h
@@ -564,5 +564,5 @@ index ddf6bdf4a62a..20ea08a830af 100644
  
  int isp4sd_init(struct isp4_subdev *isp_subdev, struct v4l2_device *v4l2_dev,
 -- 
-2.34.1
+2.53.0
 
