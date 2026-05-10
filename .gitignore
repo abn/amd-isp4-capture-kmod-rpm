@@ -1,3 +1,5 @@
 output/**
 *.tar.gz
+*.cover
+*.mbx
 

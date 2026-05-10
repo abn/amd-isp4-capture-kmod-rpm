@@ -350,10 +350,10 @@ index 000000000000..88bacb00355c
 +#endif /* _ISP4_FW_CMD_RESP_H_ */
 diff --git a/drivers/media/platform/amd/isp4/isp4_interface.c b/drivers/media/platform/amd/isp4/isp4_interface.c
 new file mode 100644
-index 000000000000..c35ff5c7273e
+index 000000000000..fc9ad7d91a7e
 --- /dev/null
 +++ b/drivers/media/platform/amd/isp4/isp4_interface.c
-@@ -0,0 +1,827 @@
+@@ -0,0 +1,833 @@
 +// SPDX-License-Identifier: GPL-2.0+
 +/*
 + * Copyright (C) 2025 Advanced Micro Devices, Inc.
@@ -482,7 +482,7 @@ index 000000000000..c35ff5c7273e
 +	struct device *dev = ispif->dev;
 +	int ret;
 +
-+	mem_info = kmalloc(sizeof(*mem_info), GFP_KERNEL);
++	mem_info = kmalloc_obj(*mem_info, GFP_KERNEL);
 +	if (!mem_info)
 +		return NULL;
 +
@@ -724,7 +724,7 @@ index 000000000000..c35ff5c7273e
 +
 +	/* Allocate the sync command object early and outside of the lock */
 +	if (sync) {
-+		ele = kmalloc(sizeof(*ele), GFP_KERNEL);
++		ele = kmalloc_obj(*ele, GFP_KERNEL);
 +		if (!ele)
 +			return -ENOMEM;
 +
@@ -812,6 +812,12 @@ index 000000000000..c35ff5c7273e
 +		ele = NULL;
 +
 +free_ele:
++	/*
++	 * The response handler or the timeout/error path must dequeue the
++	 * command element before we own the final reference.
++	 */
++	if (ele)
++		INIT_LIST_HEAD(&ele->list);
 +	kfree(ele);
 +	return ret;
 +}
@@ -1091,7 +1097,7 @@ index 000000000000..c35ff5c7273e
 +{
 +	struct isp4if_img_buf_node *node;
 +
-+	node = kmalloc(sizeof(*node), GFP_KERNEL);
++	node = kmalloc_obj(*node, GFP_KERNEL);
 +	if (node)
 +		node->buf_info = *buf_info;
 +
@@ -1332,5 +1338,5 @@ index 000000000000..ce3ac9b9e5cd
 +
 +#endif /* _ISP4_INTERFACE_H_ */
 -- 
-2.53.0
+2.54.0
 
